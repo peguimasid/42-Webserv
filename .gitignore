@@ -1,0 +1,12 @@
+webserv
+
+*/**/.a
+*/**/.o
+*/**/.out
+
+.vscode
+*.a
+*.o
+*.out
+
+.DS_Store
