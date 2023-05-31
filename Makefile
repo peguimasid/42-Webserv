@@ -3,7 +3,7 @@ NAME = webserv
 CC = c++
 CPPFLAGS = -Wall -Werror -Wextra -std=c++98
 
-SRCS = src/main.cpp
+SRCS = $(shell find src -name '*.cpp')
 
 all: $(NAME)
 
