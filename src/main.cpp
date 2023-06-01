@@ -6,8 +6,8 @@ int main(int argc, char **argv) {
       throw std::invalid_argument("Usage: ./webserv <config_file>.conf");
     }
     signal(SIGPIPE, SIG_IGN);
-    std::string configFile(argv[1]);
-    std::cout << "Hello World" << std::endl;
+    ConfigParser config;
+    config.parseServerConfigFile(argv[1]);
   } catch (std::exception &err) {
     error(err.what());
     return 1;
