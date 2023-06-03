@@ -9,5 +9,5 @@ class ConfigParser {
   ConfigParser();
   ~ConfigParser();
 
-  void parseServerConfigFile(const std::string &configFile);
+  void parseServerConfigFile(const std::string &filePath);
 };

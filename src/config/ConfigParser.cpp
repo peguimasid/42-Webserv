@@ -6,6 +6,6 @@ ConfigParser::ConfigParser() {
 
 ConfigParser::~ConfigParser() {}
 
-void ConfigParser::parseServerConfigFile(const std::string &configFile) {
-  std::cout << configFile << std::endl;
+void ConfigParser::parseServerConfigFile(const std::string &filePath) {
+  std::cout << filePath << std::endl;
 }
