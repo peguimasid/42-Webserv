@@ -9,19 +9,19 @@ ConfigParser::~ConfigParser() {}
 void ConfigParser::parseServerConfigFile(const std::string &filePath) {
   ConfigFile configFile(filePath);
 
-  FileType fileType = configFile.getType(configFile.getPath());
+  FileType fileType = configFile.getType();
 
   if (fileType == INVALID_TYPE) {
     throw std::invalid_argument("File is invalid");
   }
 
-  bool isFileReadable = configFile.isFileAccessibleInMode(configFile.getPath(), R_OK);
+  bool isFileReadable = configFile.isFileAccessibleInMode(R_OK);
 
   if (!isFileReadable) {
     throw std::invalid_argument("File is not accessible");
   }
 
-  const std::string content = configFile.getFileContent(configFile.getPath());
+  const std::string fileContent = configFile.getFileContent();
 
-  std::cout << content << std::endl;
+  std::cout << fileContent << std::endl;
 }

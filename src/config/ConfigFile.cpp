@@ -11,10 +11,10 @@ ConfigFile::ConfigFile(const std::string& filePath) {
 
 ConfigFile::~ConfigFile() {}
 
-FileType ConfigFile::getType(const std::string& filePath) {
+FileType ConfigFile::getType() {
   struct stat buffer;
 
-  int result = stat(filePath.c_str(), &buffer);
+  int result = stat(this->_filePath.c_str(), &buffer);
 
   if (result != 0) return INVALID_TYPE;
 
@@ -35,18 +35,18 @@ int ConfigFile::getSize() {
   return this->_fileSize;
 }
 
-bool ConfigFile::isFileAccessibleInMode(const std::string& path, int mode) {
-  return access(path.c_str(), mode) != -1;
+bool ConfigFile::isFileAccessibleInMode(int mode) {
+  return access(this->_filePath.c_str(), mode) != -1;
 }
 
-const std::string ConfigFile::getFileContent(const std::string& filePath) {
-  if (filePath.empty()) {
+const std::string ConfigFile::getFileContent() {
+  if (this->_filePath.empty()) {
     return std::string();
   }
 
-  std::ifstream configFile(filePath.c_str());
+  std::ifstream configFile(this->_filePath.c_str());
   if (!configFile) {
-    throw std::runtime_error("Failed to open file: " + filePath);
+    throw std::runtime_error("Failed to open file: " + this->_filePath);
   }
 
   std::stringstream streamBinding;
