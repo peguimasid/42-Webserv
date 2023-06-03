@@ -7,5 +7,7 @@ ConfigParser::ConfigParser() {
 ConfigParser::~ConfigParser() {}
 
 void ConfigParser::parseServerConfigFile(const std::string &filePath) {
-  std::cout << filePath << std::endl;
+  ConfigFile configFile(filePath);
+
+  std::cout << configFile.getType(configFile.getPath()) << std::endl;
 }
