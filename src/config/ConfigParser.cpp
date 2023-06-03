@@ -23,5 +23,9 @@ void ConfigParser::parseServerConfigFile(const std::string &filePath) {
 
   const std::string fileContent = configFile.getFileContent();
 
+  if (fileContent.empty()) {
+    throw std::invalid_argument("File is empty");
+  }
+
   std::cout << fileContent << std::endl;
 }
