@@ -1,17 +1,17 @@
-#include "../../includes/ConfigFile.hpp"
+#include "../../includes/File.hpp"
 
-ConfigFile::ConfigFile() {
+File::File() {
   this->_fileSize = 0;
 }
 
-ConfigFile::ConfigFile(const std::string& filePath) {
+File::File(const std::string& filePath) {
   this->_filePath = filePath;
   this->_fileSize = 0;
 }
 
-ConfigFile::~ConfigFile() {}
+File::~File() {}
 
-FileType ConfigFile::getType() {
+FileType File::getType() {
   struct stat buffer;
 
   int result = stat(this->_filePath.c_str(), &buffer);
@@ -27,29 +27,29 @@ FileType ConfigFile::getType() {
   return OTHER_TYPE;
 }
 
-std::string ConfigFile::getPath() {
+std::string File::getPath() {
   return this->_filePath;
 }
 
-int ConfigFile::getSize() {
+int File::getSize() {
   return this->_fileSize;
 }
 
-bool ConfigFile::isFileAccessibleInMode(int mode) {
+bool File::isFileAccessibleInMode(int mode) {
   return access(this->_filePath.c_str(), mode) != -1;
 }
 
-const std::string ConfigFile::getFileContent() {
+const std::string File::getFileContent() {
   if (this->_filePath.empty()) {
     return std::string();
   }
 
-  std::ifstream configFile(this->_filePath.c_str());
-  if (!configFile) {
+  std::ifstream file(this->_filePath.c_str());
+  if (!file) {
     throw std::runtime_error("Failed to open file: " + this->_filePath);
   }
 
   std::stringstream streamBinding;
-  streamBinding << configFile.rdbuf();
+  streamBinding << file.rdbuf();
   return streamBinding.str();
 }

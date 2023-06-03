@@ -8,15 +8,15 @@ enum FileType {
   INVALID_TYPE = -1,
 };
 
-class ConfigFile {
+class File {
  private:
   std::string _filePath;
   size_t _fileSize;
 
  public:
-  ConfigFile();
-  ConfigFile(const std::string& filePath);
-  ~ConfigFile();
+  File();
+  File(const std::string& filePath);
+  ~File();
 
   int getSize();
   std::string getPath();

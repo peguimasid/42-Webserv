@@ -1,13 +1,13 @@
 #pragma once
 #include "Webserv.hpp"
 
-class ConfigParser {
+class Parser {
  private:
   size_t _serverCount;
 
  public:
-  ConfigParser();
-  ~ConfigParser();
+  Parser();
+  ~Parser();
 
   void parseServerConfigFile(const std::string &filePath);
 };

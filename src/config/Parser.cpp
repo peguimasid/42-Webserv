@@ -1,13 +1,13 @@
-#include "../../includes/ConfigParser.hpp"
+#include "../../includes/Parser.hpp"
 
-ConfigParser::ConfigParser() {
+Parser::Parser() {
   this->_serverCount = 0;
 }
 
-ConfigParser::~ConfigParser() {}
+Parser::~Parser() {}
 
-void ConfigParser::parseServerConfigFile(const std::string &filePath) {
-  ConfigFile configFile(filePath);
+void Parser::parseServerConfigFile(const std::string &filePath) {
+  File configFile(filePath);
 
   FileType fileType = configFile.getType();
 

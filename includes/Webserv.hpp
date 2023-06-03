@@ -6,7 +6,8 @@
 #include <iostream>
 #include <sstream>
 
-#include "ConfigFile.hpp"
-#include "ConfigParser.hpp"
+// Config
+#include "File.hpp"
+#include "Parser.hpp"
 
 bool error(std::string errorMessage);
