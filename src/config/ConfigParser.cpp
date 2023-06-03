@@ -20,4 +20,8 @@ void ConfigParser::parseServerConfigFile(const std::string &filePath) {
   if (!isFileReadable) {
     throw std::invalid_argument("File is not accessible");
   }
+
+  const std::string content = configFile.getFileContent(configFile.getPath());
+
+  std::cout << content << std::endl;
 }
