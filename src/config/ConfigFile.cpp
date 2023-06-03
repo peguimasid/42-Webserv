@@ -27,6 +27,10 @@ FileType ConfigFile::getType(const std::string& filePath) {
   return OTHER_TYPE;
 }
 
+bool ConfigFile::isFileAccessibleInMode(const std::string& path, int mode) {
+  return access(path.c_str(), mode) != -1;
+}
+
 std::string ConfigFile::getPath() {
   return this->_filePath;
 }

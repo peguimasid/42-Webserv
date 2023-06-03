@@ -19,7 +19,7 @@ class ConfigFile {
   ~ConfigFile();
 
   static FileType getType(const std::string& filePath);
-  static int checkFile(const std::string& filePath, int mode);
+  static bool isFileAccessibleInMode(const std::string& filePath, int mode);
   std::string getPath();
   int getSize();
 };
