@@ -9,5 +9,9 @@ ConfigParser::~ConfigParser() {}
 void ConfigParser::parseServerConfigFile(const std::string &filePath) {
   ConfigFile configFile(filePath);
 
-  std::cout << configFile.getType(configFile.getPath()) << std::endl;
+  FileType fileType = configFile.getType(configFile.getPath());
+
+  if (fileType == INVALID_TYPE) {
+    throw std::invalid_argument("File is invalid");
+  }
 }
