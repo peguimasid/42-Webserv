@@ -10,4 +10,6 @@ class Parser {
   ~Parser();
 
   void parseServerConfigFile(const std::string &filePath);
+
+  const std::string sanitizeFileContent(const std::string &fileContent);
 };

@@ -6,6 +6,19 @@ Parser::Parser() {
 
 Parser::~Parser() {}
 
+const std::string Parser::sanitizeFileContent(const std::string &fileContent) {
+  std::string result = fileContent;
+
+  int hashTagIndex = result.find('#');
+  while (hashTagIndex >= 0) {
+    int newLineIndex = result.find('\n', hashTagIndex);
+    result.erase(hashTagIndex, newLineIndex - hashTagIndex);
+    hashTagIndex = result.find('#');
+  }
+
+  return result;
+}
+
 void Parser::parseServerConfigFile(const std::string &filePath) {
   File configFile(filePath);
 
@@ -27,5 +40,7 @@ void Parser::parseServerConfigFile(const std::string &filePath) {
     throw std::invalid_argument("File is empty");
   }
 
-  std::cout << fileContent << std::endl;
+  const std::string fileContentSanitized = this->sanitizeFileContent(fileContent);
+
+  std::cout << fileContentSanitized << std::endl;
 }
