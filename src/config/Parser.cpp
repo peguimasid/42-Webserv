@@ -20,11 +20,9 @@ const std::string Parser::removeComments(const std::string &string) {
 }
 
 const std::string Parser::sanitizeFileContent(const std::string &fileContent) {
-  std::string result = fileContent;
+  std::string contentWithoutComments = this->removeComments(fileContent);
 
-  result = this->removeComments(result);
-
-  return result;
+  return contentWithoutComments;
 }
 
 void Parser::parseServerConfigFile(const std::string &filePath) {
