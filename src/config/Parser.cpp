@@ -19,10 +19,33 @@ const std::string Parser::removeComments(const std::string &string) {
   return result;
 }
 
+const std::string Parser::trimString(const std::string &string) {
+  std::string result = string;
+
+  size_t start = 0;
+
+  while (start < result.size() && std::isspace(result[start])) {
+    start++;
+  }
+
+  result.erase(0, start);
+
+  size_t end = result.size() - 1;
+
+  while (end > 0 && std::isspace(result[end])) {
+    end--;
+  }
+
+  result.erase(end + 1);
+
+  return result;
+}
+
 const std::string Parser::sanitizeFileContent(const std::string &fileContent) {
   std::string contentWithoutComments = this->removeComments(fileContent);
+  std::string contentTrimmed = this->trimString(contentWithoutComments);
 
-  return contentWithoutComments;
+  return contentTrimmed;
 }
 
 void Parser::parseServerConfigFile(const std::string &filePath) {

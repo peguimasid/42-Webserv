@@ -13,4 +13,5 @@ class Parser {
 
   const std::string sanitizeFileContent(const std::string &fileContent);
   const std::string removeComments(const std::string &string);
+  const std::string trimString(const std::string &string);
 };
