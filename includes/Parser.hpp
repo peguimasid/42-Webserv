@@ -12,4 +12,5 @@ class Parser {
   void parseServerConfigFile(const std::string &filePath);
 
   const std::string sanitizeFileContent(const std::string &fileContent);
+  const std::string removeComments(const std::string &string);
 };

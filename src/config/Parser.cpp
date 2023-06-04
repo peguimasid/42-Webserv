@@ -6,8 +6,8 @@ Parser::Parser() {
 
 Parser::~Parser() {}
 
-const std::string Parser::sanitizeFileContent(const std::string &fileContent) {
-  std::string result = fileContent;
+const std::string Parser::removeComments(const std::string &string) {
+  std::string result = string;
 
   int hashTagIndex = result.find('#');
   while (hashTagIndex >= 0) {
@@ -15,6 +15,14 @@ const std::string Parser::sanitizeFileContent(const std::string &fileContent) {
     result.erase(hashTagIndex, newLineIndex - hashTagIndex);
     hashTagIndex = result.find('#');
   }
+
+  return result;
+}
+
+const std::string Parser::sanitizeFileContent(const std::string &fileContent) {
+  std::string result = fileContent;
+
+  result = this->removeComments(result);
 
   return result;
 }
