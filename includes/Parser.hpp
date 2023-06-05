@@ -2,9 +2,6 @@
 #include "Webserv.hpp"
 
 class Parser {
- private:
-  size_t _serverCount;
-
  public:
   Parser();
   ~Parser();

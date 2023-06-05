@@ -1,8 +1,6 @@
 #include "../../includes/Parser.hpp"
 
-Parser::Parser() {
-  this->_serverCount = 0;
-}
+Parser::Parser() {}
 
 Parser::~Parser() {}
 
@@ -49,14 +47,14 @@ const std::string Parser::sanitizeFileContent(const std::string &fileContent) {
 }
 
 std::vector<std::string> Parser::splitServerConfigs(const std::string &fileContent) {
-  (void)fileContent;
-
   std::vector<std::string> result;
 
+  if (fileContent.find("server") == std::string::npos) {
+    throw std::invalid_argument("Server not found in the content");
+  }
+
   result.push_back("Server 1");
-  this->_serverCount++;
   result.push_back("Server 2");
-  this->_serverCount++;
 
   return result;
 }
@@ -86,7 +84,9 @@ void Parser::parseServerConfigFile(const std::string &filePath) {
 
   std::vector<std::string> serverConfigs = splitServerConfigs(fileContent);
 
-  for (size_t i = 0; i < this->_serverCount; i++) {
+  for (size_t i = 0; i < serverConfigs.size(); i++) {
+    std::cout << "-----------------Start-----------------" << std::endl;
     std::cout << serverConfigs[i] << std::endl;
+    std::cout << "------------------End------------------" << std::endl;
   }
 }
