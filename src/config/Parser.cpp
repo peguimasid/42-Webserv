@@ -48,6 +48,19 @@ const std::string Parser::sanitizeFileContent(const std::string &fileContent) {
   return contentTrimmed;
 }
 
+std::vector<std::string> Parser::splitServerConfigs(const std::string &fileContent) {
+  (void)fileContent;
+
+  std::vector<std::string> result;
+
+  result.push_back("Server 1");
+  this->_serverCount++;
+  result.push_back("Server 2");
+  this->_serverCount++;
+
+  return result;
+}
+
 void Parser::parseServerConfigFile(const std::string &filePath) {
   File configFile(filePath);
 
@@ -71,5 +84,9 @@ void Parser::parseServerConfigFile(const std::string &filePath) {
 
   const std::string fileContentSanitized = this->sanitizeFileContent(fileContent);
 
-  std::cout << fileContentSanitized << std::endl;
+  std::vector<std::string> serverConfigs = splitServerConfigs(fileContent);
+
+  for (size_t i = 0; i < this->_serverCount; i++) {
+    std::cout << serverConfigs[i] << std::endl;
+  }
 }
