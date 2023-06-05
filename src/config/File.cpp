@@ -1,12 +1,11 @@
 #include "../../includes/File.hpp"
 
 File::File() {
-  this->_fileSize = 0;
+  this->_filePath = "";
 }
 
 File::File(const std::string& filePath) {
   this->_filePath = filePath;
-  this->_fileSize = 0;
 }
 
 File::~File() {}
@@ -29,10 +28,6 @@ FileType File::getType() {
 
 std::string File::getPath() {
   return this->_filePath;
-}
-
-int File::getSize() {
-  return this->_fileSize;
 }
 
 bool File::isFileAccessibleInMode(int mode) {

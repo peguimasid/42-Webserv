@@ -11,14 +11,12 @@ enum FileType {
 class File {
  private:
   std::string _filePath;
-  size_t _fileSize;
 
  public:
   File();
   File(const std::string& filePath);
   ~File();
 
-  int getSize();
   std::string getPath();
   FileType getType();
 
