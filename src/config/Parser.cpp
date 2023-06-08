@@ -46,6 +46,45 @@ const std::string Parser::sanitizeFileContent(const std::string &fileContent) {
   return contentTrimmed;
 }
 
+size_t findStartServer(size_t start, const std::string &content) {
+  size_t i;
+
+  for (i = start; content[i]; i++) {
+    if (content[i] == 's')
+      break;
+    if (!isspace(content[i]))
+      throw std::invalid_argument("Wrong character out of server scope{} 1");
+  }
+  if (!content[i])
+    return (start);
+  if (content.compare(i, 6, "server") != 0)
+    throw std::invalid_argument("Wrong character out of server scope{} 2");
+  i += 6;
+  while (content[i] && isspace(content[i]))
+    i++;
+  if (content[i] == '{')
+    return (i);
+  else
+    throw std::invalid_argument("Wrong character out of server scope{} 3");
+}
+
+size_t findEndServer(size_t start, const std::string &content) {
+  size_t i;
+  size_t scope;
+
+  scope = 0;
+  for (i = start + 1; content[i]; i++) {
+    if (content[i] == '{')
+      scope++;
+    if (content[i] == '}') {
+      if (!scope)
+        return (i);
+      scope--;
+    }
+  }
+  return (start);
+}
+
 std::vector<std::string> Parser::splitServerConfigs(const std::string &fileContent) {
   std::vector<std::string> result;
 
@@ -53,8 +92,18 @@ std::vector<std::string> Parser::splitServerConfigs(const std::string &fileConte
     throw std::invalid_argument("Server not found in the content");
   }
 
-  result.push_back("Server 1");
-  result.push_back("Server 2");
+  size_t start = 0;
+  size_t end = 1;
+
+  while (start != end && start < fileContent.length()) {
+    start = findStartServer(start, fileContent);
+    end = findEndServer(start, fileContent);
+    std::cout << start << " | " << end << std::endl;
+    if (start == end && start == fileContent.size() - 1) break;
+    if (start == end) throw std::invalid_argument("problem with scope");
+    result.push_back(fileContent.substr(start, end - start + 1));
+    start = end + 1;
+  }
 
   return result;
 }
