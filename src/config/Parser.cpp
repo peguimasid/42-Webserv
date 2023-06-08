@@ -46,44 +46,46 @@ const std::string Parser::sanitizeFileContent(const std::string &fileContent) {
   return contentTrimmed;
 }
 
-size_t findStartServer(size_t start, const std::string &content) {
+size_t Parser::findStartServer(size_t start, const std::string &content) {
   size_t i = start;
 
-  while (i < content.size()) {
-    if (content[i] == 's') break;
-    if (!std::isspace(content[i]))
-      throw std::invalid_argument("Wrong character out of server scope{} 1");
+  while (i < content.size() && std::isspace(content[i])) {
     i++;
   }
 
-  if (i == content.size())
-    return start;
-  if (content.compare(i, 6, "server") != 0)
-    throw std::invalid_argument("Wrong character out of server scope{} 2");
+  if (i == content.size() || content.compare(i, 6, "server") != 0) {
+    throw std::invalid_argument("Invalid server scope: 'server' keyword not found");
+  }
+
   i += 6;
-  while (i < content.size() && std::isspace(content[i]))
+
+  while (i < content.size() && std::isspace(content[i])) {
     i++;
-  if (i == content.size() || content[i] != '{')
-    throw std::invalid_argument("Wrong character out of server scope{} 3");
+  }
+
+  if (i == content.size() || content[i] != '{') {
+    throw std::invalid_argument("Invalid server scope: Opening brace '{' not found");
+  }
 
   return i;
 }
 
-size_t findEndServer(size_t start, const std::string &content) {
-  size_t i;
-  size_t scope;
+size_t Parser::findEndServer(size_t start, const std::string &content) {
+  size_t i = start + 1;
+  size_t openBraces = 0;
 
-  scope = 0;
-  for (i = start + 1; content[i]; i++) {
-    if (content[i] == '{')
-      scope++;
-    if (content[i] == '}') {
-      if (!scope)
-        return (i);
-      scope--;
+  while (i < content.size()) {
+    if (content[i] == '{') {
+      openBraces++;
     }
+    if (content[i] == '}') {
+      if (openBraces == 0) return i;
+      openBraces--;
+    }
+    i++;
   }
-  return (start);
+
+  throw std::invalid_argument("Invalid server scope: Closing brace '}' not found");
 }
 
 std::vector<std::string> Parser::splitServerConfigs(const std::string &fileContent) {
@@ -96,10 +98,12 @@ std::vector<std::string> Parser::splitServerConfigs(const std::string &fileConte
   size_t start = 0;
   size_t end = 1;
 
-  while (start != end && start < fileContent.length()) {
-    start = findStartServer(start, fileContent);
-    end = findEndServer(start, fileContent);
-    if (start == end) throw std::invalid_argument("problem with scope");
+  while (start != end && start < fileContent.size()) {
+    start = this->findStartServer(start, fileContent);
+    end = this->findEndServer(start, fileContent);
+    if (start == end) {
+      throw std::invalid_argument("Invalid server scope: Empty server configuration found.");
+    }
     result.push_back(fileContent.substr(start, end - start + 1));
     start = end + 1;
   }
