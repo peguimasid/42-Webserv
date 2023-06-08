@@ -20,6 +20,6 @@ class File {
   std::string getPath();
   FileType getType();
 
-  bool isFileAccessibleInMode(int mode);
+  bool isAccessibleInMode(int mode);
   const std::string getFileContent();
 };

@@ -30,7 +30,7 @@ std::string File::getPath() {
   return this->_filePath;
 }
 
-bool File::isFileAccessibleInMode(int mode) {
+bool File::isAccessibleInMode(int mode) {
   return access(this->_filePath.c_str(), mode) != -1;
 }
 

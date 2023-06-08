@@ -68,7 +68,7 @@ void Parser::parseServerConfigFile(const std::string &filePath) {
     throw std::invalid_argument("File is invalid");
   }
 
-  bool isFileReadable = configFile.isFileAccessibleInMode(R_OK);
+  bool isFileReadable = configFile.isAccessibleInMode(R_OK);
 
   if (!isFileReadable) {
     throw std::invalid_argument("File is not accessible");
