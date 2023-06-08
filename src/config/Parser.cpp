@@ -46,6 +46,48 @@ const std::string Parser::sanitizeFileContent(const std::string &fileContent) {
   return contentTrimmed;
 }
 
+size_t Parser::findStartServer(size_t start, const std::string &content) {
+  size_t i = start;
+
+  while (i < content.size() && std::isspace(content[i])) {
+    i++;
+  }
+
+  if (i == content.size() || content.compare(i, 6, "server") != 0) {
+    throw std::invalid_argument("Invalid server scope: 'server' keyword not found");
+  }
+
+  i += 6;
+
+  while (i < content.size() && std::isspace(content[i])) {
+    i++;
+  }
+
+  if (i == content.size() || content[i] != '{') {
+    throw std::invalid_argument("Invalid server scope: Opening brace '{' not found");
+  }
+
+  return i;
+}
+
+size_t Parser::findEndServer(size_t start, const std::string &content) {
+  size_t i = start + 1;
+  size_t openBraces = 0;
+
+  while (i < content.size()) {
+    if (content[i] == '{') {
+      openBraces++;
+    }
+    if (content[i] == '}') {
+      if (openBraces == 0) return i;
+      openBraces--;
+    }
+    i++;
+  }
+
+  throw std::invalid_argument("Invalid server scope: Closing brace '}' not found");
+}
+
 std::vector<std::string> Parser::splitServerConfigs(const std::string &fileContent) {
   std::vector<std::string> result;
 
@@ -53,8 +95,18 @@ std::vector<std::string> Parser::splitServerConfigs(const std::string &fileConte
     throw std::invalid_argument("Server not found in the content");
   }
 
-  result.push_back("Server 1");
-  result.push_back("Server 2");
+  size_t start = 0;
+  size_t end = 1;
+
+  while (start != end && start < fileContent.size()) {
+    start = this->findStartServer(start, fileContent);
+    end = this->findEndServer(start, fileContent);
+    if (start == end) {
+      throw std::invalid_argument("Invalid server scope: Empty server configuration found.");
+    }
+    result.push_back(fileContent.substr(start, end - start + 1));
+    start = end + 1;
+  }
 
   return result;
 }
@@ -82,7 +134,7 @@ void Parser::parseServerConfigFile(const std::string &filePath) {
 
   const std::string fileContentSanitized = this->sanitizeFileContent(fileContent);
 
-  std::vector<std::string> serverConfigs = splitServerConfigs(fileContent);
+  std::vector<std::string> serverConfigs = splitServerConfigs(fileContentSanitized);
 
   for (size_t i = 0; i < serverConfigs.size(); i++) {
     std::cout << "-----------------Start-----------------" << std::endl;
