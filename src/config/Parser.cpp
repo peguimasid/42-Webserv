@@ -47,25 +47,26 @@ const std::string Parser::sanitizeFileContent(const std::string &fileContent) {
 }
 
 size_t findStartServer(size_t start, const std::string &content) {
-  size_t i;
+  size_t i = start;
 
-  for (i = start; content[i]; i++) {
-    if (content[i] == 's')
-      break;
-    if (!isspace(content[i]))
+  while (i < content.size()) {
+    if (content[i] == 's') break;
+    if (!std::isspace(content[i]))
       throw std::invalid_argument("Wrong character out of server scope{} 1");
+    i++;
   }
-  if (!content[i])
-    return (start);
+
+  if (i == content.size())
+    return start;
   if (content.compare(i, 6, "server") != 0)
     throw std::invalid_argument("Wrong character out of server scope{} 2");
   i += 6;
-  while (content[i] && isspace(content[i]))
+  while (i < content.size() && std::isspace(content[i]))
     i++;
-  if (content[i] == '{')
-    return (i);
-  else
+  if (i == content.size() || content[i] != '{')
     throw std::invalid_argument("Wrong character out of server scope{} 3");
+
+  return i;
 }
 
 size_t findEndServer(size_t start, const std::string &content) {
@@ -98,8 +99,6 @@ std::vector<std::string> Parser::splitServerConfigs(const std::string &fileConte
   while (start != end && start < fileContent.length()) {
     start = findStartServer(start, fileContent);
     end = findEndServer(start, fileContent);
-    std::cout << start << " | " << end << std::endl;
-    if (start == end && start == fileContent.size() - 1) break;
     if (start == end) throw std::invalid_argument("problem with scope");
     result.push_back(fileContent.substr(start, end - start + 1));
     start = end + 1;
@@ -131,7 +130,7 @@ void Parser::parseServerConfigFile(const std::string &filePath) {
 
   const std::string fileContentSanitized = this->sanitizeFileContent(fileContent);
 
-  std::vector<std::string> serverConfigs = splitServerConfigs(fileContent);
+  std::vector<std::string> serverConfigs = splitServerConfigs(fileContentSanitized);
 
   for (size_t i = 0; i < serverConfigs.size(); i++) {
     std::cout << "-----------------Start-----------------" << std::endl;
