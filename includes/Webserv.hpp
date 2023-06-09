@@ -1,11 +1,13 @@
 #pragma once
+#include <netinet/in.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
 #include <fstream>
 #include <iostream>
+#include <map>
 #include <sstream>
-
+#include <vector>
 // Config
 #include "File.hpp"
 #include "Parser.hpp"
