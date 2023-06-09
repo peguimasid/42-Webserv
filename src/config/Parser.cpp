@@ -117,19 +117,19 @@ void Parser::parseServerConfigFile(const std::string &filePath) {
   FileType fileType = configFile.getType();
 
   if (fileType == INVALID_TYPE) {
-    throw std::invalid_argument("File is invalid");
+    throw Error("File is invalid");
   }
 
   bool isFileReadable = configFile.isAccessibleInMode(R_OK);
 
   if (!isFileReadable) {
-    throw std::invalid_argument("File is not accessible");
+    throw Error("File is not accessible");
   }
 
   const std::string fileContent = configFile.getFileContent();
 
   if (fileContent.empty()) {
-    throw std::invalid_argument("File is empty");
+    throw Error("File is empty");
   }
 
   const std::string fileContentSanitized = this->sanitizeFileContent(fileContent);

@@ -10,4 +10,12 @@
 #include "File.hpp"
 #include "Parser.hpp"
 
-bool error(std::string errorMessage);
+class Error : public std::exception {
+ private:
+  std::string _errorMessage;
+
+ public:
+  Error(const std::string& errorMessage) throw();
+  virtual const char* what() const throw();
+  virtual ~Error() throw();
+};
