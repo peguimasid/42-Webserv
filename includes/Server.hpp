@@ -20,4 +20,7 @@ class Server {
   Server(const Server &other);
   Server &operator=(const Server &rhs);
   ~Server();
+
+  // Utils
+  void initErrorPages(void);
 };

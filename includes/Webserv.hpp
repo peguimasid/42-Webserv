@@ -8,9 +8,13 @@
 #include <map>
 #include <sstream>
 #include <vector>
+
 // Config
 #include "File.hpp"
 #include "Parser.hpp"
+#include "Server.hpp"
+
+#define MAX_BODY_SIZE 30000000
 
 class Error : public std::exception {
  private:
