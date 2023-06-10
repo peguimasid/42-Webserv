@@ -6,5 +6,6 @@ class ServerFactory {
   ServerFactory();
   ~ServerFactory();
 
+  Server createServer(const std::string &serverConfig);
   std::vector<Server> createServers(std::vector<std::string> serverConfigs);
 };
