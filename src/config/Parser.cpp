@@ -122,7 +122,7 @@ const std::vector<Server> Parser::createServers(const std::vector<std::string> &
   return result;
 }
 
-void Parser::parseServerConfigFile(const std::string &filePath) {
+const std::vector<Server> Parser::parseServerConfigFile(const std::string &filePath) {
   File configFile(filePath);
 
   FileType fileType = configFile.getType();
@@ -147,11 +147,9 @@ void Parser::parseServerConfigFile(const std::string &filePath) {
 
   const std::vector<std::string> serverConfigs = splitServerConfigs(fileContentSanitized);
 
-  this->_servers = createServers(serverConfigs);
+  const std::vector<Server> result = createServers(serverConfigs);
 
-  for (size_t i = 0; i < this->_servers.size(); i++) {
-    std::cout << "-----------------Start-----------------" << std::endl;
-    std::cout << this->_servers[i].getPort() << std::endl;
-    std::cout << "------------------End------------------" << std::endl;
-  }
+  // TODO: Check if servers are correct
+
+  return result;
 }

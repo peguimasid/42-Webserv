@@ -7,6 +7,15 @@ int error(std::string errorMessage) {
   return 1;
 }
 
+// TODO: Remove this
+void printServers(std::vector<Server> servers) {
+  for (size_t i = 0; i < servers.size(); i++) {
+    std::cout << "-----------------Start-----------------" << std::endl;
+    std::cout << servers[i].getPort() << std::endl;
+    std::cout << "------------------End------------------" << std::endl;
+  }
+}
+
 int main(int argc, char **argv) {
   try {
     if (argc != 2) {
@@ -14,7 +23,8 @@ int main(int argc, char **argv) {
     }
     signal(SIGPIPE, SIG_IGN);
     Parser config;
-    config.parseServerConfigFile(argv[1]);
+    std::vector<Server> servers = config.parseServerConfigFile(argv[1]);
+    printServers(servers);
   } catch (std::exception &err) {
     return error(err.what());
   }

@@ -4,14 +4,11 @@
 class Server;
 
 class Parser {
- private:
-  std::vector<Server> _servers;
-
  public:
   Parser();
   ~Parser();
 
-  void parseServerConfigFile(const std::string &filePath);
+  const std::vector<Server> parseServerConfigFile(const std::string &filePath);
 
   size_t findStartServer(size_t start, const std::string &content);
   size_t findEndServer(size_t start, const std::string &content);
