@@ -16,8 +16,8 @@ std::vector<Server> ServerFactory::createServers(std::vector<std::string> server
   std::vector<Server> servers;
 
   for (size_t i = 0; i < serverConfigs.size(); i++) {
-    std::string currentServerConfig = serverConfigs[i];
-    Server server = createServer(currentServerConfig);
+    std::string config = serverConfigs[i];
+    Server server = createServer(config);
     servers.push_back(server);
   }
 
