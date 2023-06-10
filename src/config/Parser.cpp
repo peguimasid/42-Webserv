@@ -111,17 +111,6 @@ const std::vector<std::string> Parser::splitServerConfigs(const std::string &fil
   return result;
 }
 
-const std::vector<Server> Parser::createServers(const std::vector<std::string> &serverConfigs) {
-  std::vector<Server> result;
-
-  for (size_t i = 0; i < serverConfigs.size(); i++) {
-    Server currentServer;
-    result.push_back(currentServer);
-  }
-
-  return result;
-}
-
 const std::vector<Server> Parser::parseServerConfigFile(const std::string &filePath) {
   File configFile(filePath);
 
@@ -147,9 +136,10 @@ const std::vector<Server> Parser::parseServerConfigFile(const std::string &fileP
 
   const std::vector<std::string> serverConfigs = splitServerConfigs(fileContentSanitized);
 
-  const std::vector<Server> result = createServers(serverConfigs);
+  ServerFactory serverFactory;
+  const std::vector<Server> servers = serverFactory.createServers(serverConfigs);
 
   // TODO: Check if servers are correct
 
-  return result;
+  return servers;
 }

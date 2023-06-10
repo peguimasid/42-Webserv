@@ -13,6 +13,7 @@
 #include "File.hpp"
 #include "Parser.hpp"
 #include "Server.hpp"
+#include "ServerFactory.hpp"
 
 #define MAX_BODY_SIZE 30000000
 
