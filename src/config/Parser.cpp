@@ -88,7 +88,7 @@ size_t Parser::findEndServer(size_t start, const std::string &content) {
   throw Error("Invalid server scope: Closing brace '}' not found");
 }
 
-std::vector<std::string> Parser::splitServerConfigs(const std::string &fileContent) {
+const std::vector<std::string> Parser::splitServerConfigs(const std::string &fileContent) {
   std::vector<std::string> result;
 
   if (fileContent.find("server") == std::string::npos) {
@@ -106,6 +106,17 @@ std::vector<std::string> Parser::splitServerConfigs(const std::string &fileConte
     }
     result.push_back(fileContent.substr(start, end - start + 1));
     start = end + 1;
+  }
+
+  return result;
+}
+
+const std::vector<Server> Parser::createServers(const std::vector<std::string> &serverConfigs) {
+  std::vector<Server> result;
+
+  for (size_t i = 0; i < serverConfigs.size(); i++) {
+    Server currentServer;
+    result.push_back(currentServer);
   }
 
   return result;
@@ -134,11 +145,13 @@ void Parser::parseServerConfigFile(const std::string &filePath) {
 
   const std::string fileContentSanitized = this->sanitizeFileContent(fileContent);
 
-  std::vector<std::string> serverConfigs = splitServerConfigs(fileContentSanitized);
+  const std::vector<std::string> serverConfigs = splitServerConfigs(fileContentSanitized);
 
-  for (size_t i = 0; i < serverConfigs.size(); i++) {
+  this->_servers = createServers(serverConfigs);
+
+  for (size_t i = 0; i < this->_servers.size(); i++) {
     std::cout << "-----------------Start-----------------" << std::endl;
-    std::cout << serverConfigs[i] << std::endl;
+    std::cout << this->_servers[i].getPort() << std::endl;
     std::cout << "------------------End------------------" << std::endl;
   }
 }

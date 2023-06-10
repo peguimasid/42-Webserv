@@ -62,3 +62,46 @@ void Server::initErrorPages(void) {
   this->_errorPages[503] = "";
   this->_errorPages[505] = "";
 }
+
+int Server::getFd() {
+  return this->_listenFd;
+}
+
+const uint16_t &Server::getPort() {
+  return this->_port;
+}
+
+const in_addr_t &Server::getHost() {
+  return this->_host;
+}
+
+const bool &Server::getAutoIndex() {
+  return this->_autoIndex;
+}
+
+const std::string &Server::getRoot() {
+  return this->_root;
+}
+
+const std::string &Server::getIndex() {
+  return this->_index;
+}
+
+const std::string &Server::getServerName() {
+  return this->_serverName;
+}
+
+const size_t &Server::getClientMaxBodySize() {
+  return this->_clientMaxBodySize;
+}
+
+const std::string &Server::getPathErrorPage(short key) {
+  std::map<short, std::string>::iterator it = this->_errorPages.find(key);
+  if (it == this->_errorPages.end())
+    throw Error("Error page does not exist");
+  return (it->second);
+}
+
+const std::map<short, std::string> &Server::getErrorPages() {
+  return this->_errorPages;
+}

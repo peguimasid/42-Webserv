@@ -23,4 +23,16 @@ class Server {
 
   // Utils
   void initErrorPages(void);
+
+  // Getters
+  int getFd();
+  const uint16_t &getPort();
+  const in_addr_t &getHost();
+  const bool &getAutoIndex();
+  const std::string &getRoot();
+  const std::string &getIndex();
+  const std::string &getServerName();
+  const size_t &getClientMaxBodySize();
+  const std::string &getPathErrorPage(short key);
+  const std::map<short, std::string> &getErrorPages();
 };
