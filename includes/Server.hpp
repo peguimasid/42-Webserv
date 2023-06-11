@@ -35,4 +35,15 @@ class Server {
   const size_t &getClientMaxBodySize();
   const std::string &getPathErrorPage(short key);
   const std::map<short, std::string> &getErrorPages();
+
+  // Setters
+  void setFd(int fd);
+  void setPort(uint16_t port);
+  void setHost(in_addr_t host);
+  void setAutoIndex(bool autoIndex);
+  void setRoot(const std::string &root);
+  void setIndex(const std::string &index);
+  void setServerName(const std::string &serverName);
+  void setClientMaxBodySize(size_t maxBodySize);
+  void setErrorPages(const std::map<short, std::string> &errorPages);
 };

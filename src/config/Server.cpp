@@ -1,5 +1,7 @@
 #include "../../includes/Server.hpp"
 
+// Constructors
+
 Server::Server() {
   this->_port = 0;
   this->_host = 0;
@@ -63,6 +65,8 @@ void Server::initErrorPages(void) {
   this->_errorPages[505] = "";
 }
 
+// Getters
+
 int Server::getFd() {
   return this->_listenFd;
 }
@@ -104,4 +108,42 @@ const std::string &Server::getPathErrorPage(short key) {
 
 const std::map<short, std::string> &Server::getErrorPages() {
   return this->_errorPages;
+}
+
+// Setters
+
+void Server::setFd(int fd) {
+  this->_listenFd = fd;
+}
+
+void Server::setPort(uint16_t port) {
+  this->_port = port;
+}
+
+void Server::setHost(in_addr_t host) {
+  this->_host = host;
+}
+
+void Server::setAutoIndex(bool autoIndex) {
+  this->_autoIndex = autoIndex;
+}
+
+void Server::setRoot(const std::string &root) {
+  this->_root = root;
+}
+
+void Server::setIndex(const std::string &index) {
+  this->_index = index;
+}
+
+void Server::setServerName(const std::string &serverName) {
+  this->_serverName = serverName;
+}
+
+void Server::setClientMaxBodySize(size_t maxBodySize) {
+  this->_clientMaxBodySize = maxBodySize;
+}
+
+void Server::setErrorPages(const std::map<short, std::string> &errorPages) {
+  this->_errorPages = errorPages;
 }
