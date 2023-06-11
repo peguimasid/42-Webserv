@@ -11,6 +11,7 @@
 
 // Config
 #include "File.hpp"
+#include "Location.hpp"
 #include "Parser.hpp"
 #include "Server.hpp"
 #include "ServerFactory.hpp"

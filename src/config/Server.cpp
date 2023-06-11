@@ -27,6 +27,7 @@ Server::Server(const Server &other) {
   this->_autoIndex = other._autoIndex;
   this->_errorPages = other._errorPages;
   this->_serverAddress = other._serverAddress;
+  this->_locations = other._locations;
 }
 
 Server &Server::operator=(const Server &other) {
@@ -42,6 +43,7 @@ Server &Server::operator=(const Server &other) {
   this->_autoIndex = other._autoIndex;
   this->_errorPages = other._errorPages;
   this->_serverAddress = other._serverAddress;
+  this->_locations = other._locations;
 
   return *this;
 }
@@ -93,6 +95,10 @@ const std::string &Server::getIndex() {
 
 const std::string &Server::getServerName() {
   return this->_serverName;
+}
+
+const std::vector<Location> &Server::getLocations() {
+  return this->_locations;
 }
 
 const size_t &Server::getClientMaxBodySize() {

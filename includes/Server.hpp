@@ -1,6 +1,8 @@
 #pragma once
 #include "Webserv.hpp"
 
+class Location;
+
 class Server {
  private:
   int _listenFd;
@@ -10,6 +12,7 @@ class Server {
   std::string _root;
   std::string _index;
   std::string _serverName;
+  std::vector<Location> _locations;
   unsigned long _clientMaxBodySize;
   struct sockaddr_in _serverAddress;
   std::map<short, std::string> _errorPages;
@@ -32,6 +35,7 @@ class Server {
   const std::string &getRoot();
   const std::string &getIndex();
   const std::string &getServerName();
+  const std::vector<Location> &getLocations();
   const size_t &getClientMaxBodySize();
   const std::string &getPathErrorPage(short key);
   const std::map<short, std::string> &getErrorPages();

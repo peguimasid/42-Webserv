@@ -8,7 +8,12 @@ Location::Location() {
   this->_returnPath = "";
   this->_aliasPath = "";
   this->_maxRequestBodySize = MAX_BODY_SIZE;
-  this->_allowedMethods = {1, 0, 0, 0, 0};
+
+  this->_allowedMethods.push_back(1);
+  this->_allowedMethods.push_back(0);
+  this->_allowedMethods.push_back(0);
+  this->_allowedMethods.push_back(0);
+  this->_allowedMethods.push_back(0);
 }
 
 Location::Location(const Location &other) {
@@ -108,6 +113,7 @@ void Location::setDefaultIndex(const std::string &defaultIndex) {
 }
 
 void Location::setAllowedMethods(const std::vector<std::string> &allowedMethods) {
+  (void)allowedMethods;
   // TODO: Run through every item in vector and set in position or throw error if is not valid
 }
 
