@@ -137,7 +137,27 @@ void Location::setMaxRequestBodySize(unsigned long maxRequestBodySize) {
   this->_maxRequestBodySize = maxRequestBodySize;
 }
 
+// Utils
+
+std::string join(const std::vector<std::string> &strings, const std::string &separator) {
+  std::string result;
+  for (size_t i = 0; i < strings.size(); ++i) {
+    result += strings[i];
+    if (i < strings.size() - 1)
+      result += separator;
+  }
+  return result;
+}
+
 std::string Location::getFormattedAllowedMethods() const {
-  // TODO: Implement a function that return like this: "GET, POST, DELETE"
-  return "NOT IMPLEMENTED YET";
+  std::vector<std::string> methods;
+
+  std::cout << this->_allowedMethods.size() << std::endl;
+  if (this->_allowedMethods[0]) methods.push_back("GET");
+  if (this->_allowedMethods[1]) methods.push_back("POST");
+  if (this->_allowedMethods[2]) methods.push_back("DELETE");
+  if (this->_allowedMethods[3]) methods.push_back("PUT");
+  if (this->_allowedMethods[4]) methods.push_back("HEAD");
+
+  return join(methods, ", ");
 }
