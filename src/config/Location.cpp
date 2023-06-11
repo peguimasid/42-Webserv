@@ -141,10 +141,11 @@ void Location::setMaxRequestBodySize(unsigned long maxRequestBodySize) {
 
 std::string join(const std::vector<std::string> &strings, const std::string &separator) {
   std::string result;
-  for (size_t i = 0; i < strings.size(); ++i) {
+  for (size_t i = 0; i < strings.size(); i++) {
     result += strings[i];
-    if (i < strings.size() - 1)
+    if (i < strings.size() - 1) {
       result += separator;
+    }
   }
   return result;
 }
@@ -152,7 +153,6 @@ std::string join(const std::vector<std::string> &strings, const std::string &sep
 std::string Location::getFormattedAllowedMethods() const {
   std::vector<std::string> methods;
 
-  std::cout << this->_allowedMethods.size() << std::endl;
   if (this->_allowedMethods[0]) methods.push_back("GET");
   if (this->_allowedMethods[1]) methods.push_back("POST");
   if (this->_allowedMethods[2]) methods.push_back("DELETE");
