@@ -18,7 +18,7 @@ class Server {
   // Constructors
   Server();
   Server(const Server &other);
-  Server &operator=(const Server &rhs);
+  Server &operator=(const Server &other);
   ~Server();
 
   // Utils
