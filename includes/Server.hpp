@@ -50,4 +50,7 @@ class Server {
   void setServerName(const std::string &serverName);
   void setClientMaxBodySize(size_t maxBodySize);
   void setErrorPages(const std::map<short, std::string> &errorPages);
+
+  // Utils
+  void addLocation(const Location &location);
 };

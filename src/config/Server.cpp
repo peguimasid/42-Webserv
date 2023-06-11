@@ -153,3 +153,9 @@ void Server::setClientMaxBodySize(size_t maxBodySize) {
 void Server::setErrorPages(const std::map<short, std::string> &errorPages) {
   this->_errorPages = errorPages;
 }
+
+// Utils
+
+void Server::addLocation(const Location &location) {
+  this->_locations.push_back(location);
+}
